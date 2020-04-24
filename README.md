@@ -11,18 +11,18 @@ npm install m3u8-downloader-concurrency --save
 
 Javascript
 ```javascript
-let url = 'https://abc.com/video28912030123/index.m3u8';//required
-let outputDir = '/Users/xxxx/Downloads/tmp';//required
+let url = 'https://abc.com/video28912030123/index.m3u8'; //required
+let outputDir = '/Users/xxxx/Downloads/tmp'; //required
 
-let threadCount = 5; //optional
+// let threadCount = 5; //optional
 
-let videoUrlDirPath = 'https://abc.com/video28912030123/'; //optional
-let headerReferrer = 'https://abc.com'; //optional
-let videoSuffix = '.ts'; //optional
+// let videoUrlDirPath = 'https://abc.com/video28912030123/'; //optional
+// let headerReferrer = 'https://abc.com'; //optional
+// let videoSuffix = '.ts'; //optional
 
-let retryOnError = true; //optional
+// let retryOnError = true; //optional
 
-let downloader = require('./downloader')
+let downloader = require('m3u8-downloader-concurrency')
 
 let listener = downloader.download({
     url,
@@ -55,4 +55,5 @@ listener.on('complete', function (d) {
 listener.on('error', function (e) {
     console.error('error', e);
 });
+
 ```
