@@ -1,5 +1,5 @@
-let url = 'https://abc.com/video28912030123/index.m3u8';//required
-let outputDir = '/Users/xxxx/Downloads/tmp';//required
+let url = 'https://abc.com/video28912030123/index.m3u8'; //required
+let outputDir = '/Users/xxxx/Downloads/tmp'; //required
 
 // let threadCount = 5; //optional
 
