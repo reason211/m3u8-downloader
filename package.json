@@ -1,0 +1,30 @@
+{
+  "name": "m3u8-downloader-concurrency",
+  "version": "1.0.2",
+  "description": "M3u8 downloader - Auto Merge/Multi Thread/Event Monitor/Custom HTTP Referrer",
+  "main": "downloader.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "reason211 <q451886821@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.88.2"
+  },
+  "bugs": {
+    "url": "https://github.com/reason211/m3u8-downloader/issues"
+  },
+  "homepage": "https://github.com/reason211/m3u8-downloader#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reason211/m3u8-downloader.git"
+  },
+  "keywords": [
+    "m3u8 downloader",
+    "multi thread",
+    "auto merge",
+    "http referrer",
+    "event",
+    "monitor"
+  ]
+}
