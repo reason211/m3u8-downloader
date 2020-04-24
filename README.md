@@ -16,7 +16,7 @@ let outputDir = '/Users/xxxx/Downloads/tmp';//required
 
 // let retryOnError = true; //optional
 
-let downloader = require('./downloader')
+let downloader = require('m3u8-downloader-concurrency')
 
 let listener = downloader.download({
     url,
