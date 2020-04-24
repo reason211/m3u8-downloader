@@ -90,7 +90,7 @@ let startTasks = (taskList, taskHandlePromise, limit = 3) => {
 
 function mergeFiles(list) {
 
-    let outFile = outputDir + '/' + 'output.ts';
+    let outFile = outputDir + '/' + outputFileName;
 
     if( fs.existsSync(outFile) ){
         fs.unlinkSync(outFile);
@@ -112,6 +112,7 @@ function download(options) {
         ({
             url:m3u8Url = '',
             outputDir = '',
+            outputFileName = 'output.ts',
             threadCount = 5,
             videoSuffix = '.ts',
             videoUrlDirPath = '',
