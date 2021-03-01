@@ -1,10 +1,11 @@
 let url = process.argv[2]
-  ? process.argv[2]
-    : "https://abc.com/video28912030123/index.m3u8?v=123123"; //required
+  ? process.argv[2].replace("\\", "")
+  : "https://.../xx.m3u8?v=123"; //required
+
 
 let outputDir = process.argv[3]
   ? process.argv[3]
-  : "./" + new Date().toString(); //required
+  : "./" + new Date().getTime(); //required
 
 console.log(url, outputDir);
 
@@ -17,7 +18,7 @@ console.log(url, outputDir);
 
 // let retryOnError = true; //optional
 
-let downloader = require('m3u8-downloader-concurrency')
+let downloader = require('./downloader.js')
 
 let listener = downloader.download({
     url,

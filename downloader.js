@@ -106,6 +106,7 @@ function mergeFiles(list) {
     list.forEach(url => {
         let fileName = url.split('/').pop();
         let result = fs.readFileSync(outputDir + '/' + fileName);
+        fs.unlinkSync(outputDir + "/" + fileName);
 
         fs.appendFileSync(outFile, result)
     });
