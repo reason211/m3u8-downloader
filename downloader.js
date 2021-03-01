@@ -23,11 +23,17 @@ function loadM3u8(onLoad) {
         lines = response.body.split('\n')
         files = []
         lines.forEach(line => {
-            if (line.endsWith(videoSuffix)) {
-                file = videoUrlDirPath + '/' + line;
+             if (
+               line.endsWith(videoSuffix) ||
+               line.includes(videoSuffix + "?")
+             ) {
+               file =
+                 (!videoUrlDirPath.endsWith("/")
+                   ? videoUrlDirPath + "/"
+                   : videoUrlDirPath) + line;
 
-                files.push(file)
-            }
+               files.push(file);
+             }
         });
 
         onLoad(files)

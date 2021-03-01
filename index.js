@@ -1,5 +1,12 @@
-let url = 'https://abc.com/video28912030123/index.m3u8'; //required
-let outputDir = '/Users/xxxx/Downloads/tmp'; //required
+let url = process.argv[2]
+  ? process.argv[2]
+    : "https://abc.com/video28912030123/index.m3u8?v=123123"; //required
+
+let outputDir = process.argv[3]
+  ? process.argv[3]
+  : "./" + new Date().toString(); //required
+
+console.log(url, outputDir);
 
 // let outputFileName = 'output.ts'; //optional
 // let threadCount = 5; //optional
