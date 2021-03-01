@@ -46,7 +46,10 @@ listener.on('downloaded', function (d) {
 
 
 listener.on('complete', function (d) {
-    console.log('done', d);
+  console.log("done", d);
+
+    //todo
+    // ffmpeg - i output.ts - codec copy output.mp4
 });
 
 listener.on('error', function (e) {
