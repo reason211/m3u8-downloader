@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 let url = process.argv[2]
   ? process.argv[2].replace("\\", "")
   : "https://.../xx.m3u8?v=123"; //required

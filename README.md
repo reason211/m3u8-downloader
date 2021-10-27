@@ -4,12 +4,18 @@ M3u8 downloader - Multi Thread/Auto Merge/Event Monitor/Custom HTTP Referrer
 ****Pure Javascript
 
 # How to use
-Shell
+
+Download m3u8 video files directly 
 ```shell
-npm install m3u8-downloader-concurrency --save
+npm install -g m3u8-downloader-concurrency 
+m3u8-downloader "https://xxx/xxx.m3u8" outputDir
 ```
 
-Javascript
+Advanced usage
+```shell
+npm install --save m3u8-downloader-concurrency 
+```
+
 ```javascript
 let url = 'https://abc.com/video28912030123/index.m3u8'; //required
 let outputDir = '/Users/xxxx/Downloads/tmp'; //required

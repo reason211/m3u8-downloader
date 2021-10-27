@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin":{
+    "m3u8-downloader":"index.js"
+  },
   "author": "reason211 <q451886821@gmail.com>",
   "license": "MIT",
   "dependencies": {
