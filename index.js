@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 let url = process.argv[2]
-  ? process.argv[2].replace("\\", "")
+  ? decodeURIComponent( process.argv[2] )
   : "https://.../xx.m3u8?v=123"; //required
 
 
@@ -13,7 +13,7 @@ let proxy = process.argv[4]
   ? process.argv[4]
   : null;
 
-console.log(url, outputDir);
+console.log(url, outputDir, proxy);
 
 // let outputFileName = 'output.ts'; //optional
 // let threadCount = 5; //optional
