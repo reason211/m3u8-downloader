@@ -7,7 +7,11 @@ let url = process.argv[2]
 
 let outputDir = process.argv[3]
   ? process.argv[3]
-  : "./" + new Date().getTime(); //required
+  : "./" + new Date().getTime();
+
+let proxy = process.argv[4]
+  ? process.argv[4]
+  : null;
 
 console.log(url, outputDir);
 
@@ -25,6 +29,7 @@ let downloader = require('./downloader.js')
 let listener = downloader.download({
     url,
     outputDir,
+    proxy
     // outputFileName,
     // threadCount,
     // videoSuffix,

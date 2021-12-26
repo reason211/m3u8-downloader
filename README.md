@@ -8,7 +8,11 @@ M3u8 downloader - Multi Thread/Auto Merge/Event Monitor/Custom HTTP Referrer
 Download m3u8 video files directly 
 ```shell
 npm install -g m3u8-downloader-concurrency 
+m3u8-downloader "https://xxx/xxx.m3u8"
+# or with output directory
 m3u8-downloader "https://xxx/xxx.m3u8" outputDir
+# or with proxy
+m3u8-downloader "https://xxx/xxx.m3u8" outputDir "127.0.0.1:1080"
 ```
 
 Advanced usage

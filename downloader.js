@@ -10,7 +10,8 @@ function loadM3u8(onLoad) {
         'url': m3u8Url,
         'headers': {
             'Referer': headerReferrer
-        }
+        },
+        proxy
     };
     request(options, function (error, response) {
 
@@ -50,7 +51,8 @@ function downloadVideoFile(url) {
             'encoding': null,
             'headers': {
                 'Referer': headerReferrer
-            }
+            },
+            proxy
         };
         request(options, function (error, response) {
             if (error){
@@ -124,7 +126,8 @@ function download(options) {
             videoSuffix = '.ts',
             videoUrlDirPath = '',
             headerReferrer = '',
-            retryOnError=true
+            retryOnError=true,
+            proxy=null
         } = options )
 
         if( !videoUrlDirPath ){
