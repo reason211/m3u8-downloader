@@ -119,7 +119,7 @@ function download(options) {
         ({
             url:m3u8Url = '',
             outputDir = '',
-            outputFileName = 'output.ts',
+            outputFileName =  new Date().getTime() + '.ts',
             threadCount = 5,
             videoSuffix = '.ts',
             videoUrlDirPath = '',
