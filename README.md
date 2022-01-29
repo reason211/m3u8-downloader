@@ -1,5 +1,5 @@
 # m3u8-downloader
-M3u8 downloader - Multi Thread/Auto Merge/Event Monitor/Custom HTTP Referrer
+M3u8 downloader - Multi Thread/Auto Merge/Event Monitor/Custom HTTP Referrer/Support HTTP Proxy
 
 ****Pure Javascript
 
