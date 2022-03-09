@@ -9,14 +9,31 @@ Download m3u8 video files directly
 ```shell
 npm install -g m3u8-downloader-concurrency 
 
-m3u8-downloader "https://xxx/xxx.m3u8"
-# or with output directory
-m3u8-downloader "https://xxx/xxx.m3u8" outputDir
+m3u8-downloader --url="https://xxx/xxx.m3u8"
 # or with proxy
-m3u8-downloader "https://xxx/xxx.m3u8" outputDir "http://127.0.0.1:1080"
+m3u8-downloader --url="https://xxx/xxx.m3u8" --proxy="http://127.0.0.1:1080" 
 ```
 
-Advanced usage
+
+# options
+## --out=outputDir 
+
+Specify the download output directory
+
+## --proxy="http://127.0.0.1:1080" 
+
+Specify the proxy to use
+
+## --suffix=".ts" 
+
+Specify the suffix name of the video fragment to download
+
+## --root="https://abc.com/video28912030123/" 
+
+Specify the URL Root address of the video fragment to download
+
+
+# Advanced usage
 ```shell
 npm install --save m3u8-downloader-concurrency 
 ```
@@ -34,11 +51,14 @@ let outputDir = '/Users/xxxx/Downloads/tmp'; //required
 
 // let retryOnError = true; //optional
 
+// let proxy = '127.0.0.1:1080'; //optional
+
 let downloader = require('m3u8-downloader-concurrency')
 
 let listener = downloader.download({
     url,
     outputDir,
+    // proxy,
     // outputFileName,
     // threadCount,
     // videoSuffix,

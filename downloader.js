@@ -29,9 +29,9 @@ function loadM3u8(onLoad) {
                line.includes(videoSuffix + "?")
              ) {
                file =
-                 (!videoUrlDirPath.endsWith("/")
-                   ? videoUrlDirPath + "/"
-                   : videoUrlDirPath) + line;
+                 (videoUrlDirPath.endsWith("/")
+                   ?videoUrlDirPath
+                   :  videoUrlDirPath + "/" ) + line.replace(/^\//,'');
 
                files.push(file);
              }

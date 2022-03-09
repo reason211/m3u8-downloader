@@ -1,17 +1,22 @@
 #!/usr/bin/env node
+const args = require('minimist')(process.argv.slice(2))
 
-let url = process.argv[2]
-  ? decodeURIComponent( process.argv[2] )
+
+args['url'] = args['url'] || args._[0];
+args['out'] = args['out'] || args._[1];
+args['proxy'] = args['proxy'] || args._[2];
+args['suffix'] = args['suffix'] || args._[3];
+args['root'] = args['root'] || args._[4];
+
+
+let url = args['url'] 
+  ? decodeURIComponent( args['url'] )
   : "https://.../xx.m3u8?v=123"; //required
+let outputDir = args['out']  || "./" + new Date().getTime();
+let proxy = args['proxy'];
+let videoSuffix = args['suffix'] || '.ts';
+let videoUrlDirPath = args['root'];
 
-
-let outputDir = process.argv[3]
-  ? process.argv[3]
-  : "./" + new Date().getTime();
-
-let proxy = process.argv[4]
-  ? process.argv[4]
-  : null;
 
 console.log(url, outputDir, proxy);
 
@@ -29,11 +34,11 @@ let downloader = require('./downloader.js')
 let listener = downloader.download({
     url,
     outputDir,
-    proxy
+    proxy,
     // outputFileName,
     // threadCount,
-    // videoSuffix,
-    // videoUrlDirPath,
+    videoSuffix,
+    videoUrlDirPath,
     // headerReferrer,
     // retryOnError
 })

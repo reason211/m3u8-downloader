@@ -1,17 +1,18 @@
 {
-"name": "m3u8-downloader-concurrency",
-  "version": "1.1.6",
+  "name": "m3u8-downloader-concurrency",
+  "version": "1.1.7",
   "description": "M3u8 downloader - Multi Thread/Auto Merge/Event Monitor/Custom HTTP Referrer",
   "main": "downloader.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "bin":{
-    "m3u8-downloader":"index.js"
+  "bin": {
+    "m3u8-downloader": "index.js"
   },
   "author": "reason211 <q451886821@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "minimist": "^1.2.5",
     "request": "^2.88.2"
   },
   "bugs": {
