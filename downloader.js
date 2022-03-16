@@ -89,8 +89,9 @@ let startTasks = (taskList, taskHandlePromise, limit = 3) => {
 
     let listCopy = [].concat(taskList);
     let asyncTaskList = []
-    while (limit--) {
+    while (limit > 0 && listCopy.length > 0) {
         asyncTaskList.push(_runTask(listCopy));
+        limit--
     }
 
     return Promise.all(asyncTaskList);
