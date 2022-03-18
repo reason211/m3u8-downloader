@@ -28,12 +28,17 @@ function loadM3u8(onLoad) {
                line.endsWith(videoSuffix) ||
                line.includes(videoSuffix + "?")
              ) {
-               file =
-                 (videoUrlDirPath.endsWith("/")
-                   ?videoUrlDirPath
-                   :  videoUrlDirPath + "/" ) + line.replace(/^\//,'');
-
-               files.push(file);
+                if( line.startsWith('http://') || line.startsWith('https://') ){
+                    files.push(line);
+                }else{
+                    let file =
+                    (videoUrlDirPath.endsWith("/")
+                      ?videoUrlDirPath
+                      :  videoUrlDirPath + "/" ) + line.replace(/^\//,'');
+   
+                    files.push(file);
+                }
+            
              }
         });
 
