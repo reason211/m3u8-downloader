@@ -11,7 +11,7 @@ npm install -g m3u8-downloader-concurrency
 
 m3u8-downloader --url="https://xxx/xxx.m3u8"
 # or with proxy
-m3u8-downloader --url="https://xxx/xxx.m3u8" --proxy="http://127.0.0.1:1080" 
+m3u8-downloader --proxy="http://127.0.0.1:1080" --url="https://xxx/xxx.m3u8" --out tmpdir
 ```
 
 
