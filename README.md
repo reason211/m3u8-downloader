@@ -67,17 +67,20 @@ let outputDir = '/Users/xxxx/Downloads/tmp'; //required
 
 let downloader = require('m3u8-downloader-concurrency')
 
-let listener = downloader.download({
+let options = {
     url,
-    outputDir,
-    // proxy,
-    // outputFileName,
-    // threadCount,
-    // videoSuffix,
-    // videoUrlDirPath,
-    // headerReferrer,
-    // retryOnError
-})
+    outputDir, //optional
+    proxy, //optional
+    // outputFileName, //optional
+    threadCount, //optional
+    videoSuffix, //optional
+    videoUrlDirPath, //optional
+    headerReferrer, //optional
+    retryOnError, //optional
+    debug //optional
+};
+
+let listener = downloader.download(options)
 
 listener.on('start', function (d) {
     console.log("started downloading");
