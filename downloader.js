@@ -4,6 +4,8 @@ var request = require('request');
 var EventEmitter = require('events').EventEmitter;
 eventEmitter = new EventEmitter()
 
+let downloadOptions = {}
+
 function loadM3u8(onLoad) {
     var options = {
         'method': 'GET',
@@ -21,7 +23,7 @@ function loadM3u8(onLoad) {
             return
         }
 
-        if( options.debug ){
+        if( downloadOptions.debug ){
             console.log('M3u8 url res:', response.body);
         }
         
@@ -129,19 +131,36 @@ function mergeFiles(list) {
 
 function download(options) {
     setImmediate(()=>{
+        downloadOptions = options = Object.assign({
+            url : '',
+            outputDir : '',
+            outputFileName :  new Date().getTime() + '.ts',
+            threadCount : 5,
+            videoSuffix : '',
+            videoUrlDirPath : '',
+            headerReferrer : '',
+            retryOnError:true,
+            proxy:null,
+            debug:false
+        }, options);
+
+        
         ({
-            url:m3u8Url = '',
-            outputDir = '',
-            outputFileName =  new Date().getTime() + '.ts',
-            threadCount = 5,
-            videoSuffix = '',
-            videoUrlDirPath = '',
-            headerReferrer = '',
-            retryOnError=true,
-            proxy=null,
-            debug=false
+            url:m3u8Url ,
+            outputDir ,
+            outputFileName,
+            threadCount ,
+            videoSuffix ,
+            videoUrlDirPath,
+            headerReferrer,
+            retryOnError,
+            proxy,
+            debug
         } = options )
 
+        console.log('DEBUG', debug);
+
+        
         if(debug){
             console.log('Download options:' , options);
         }

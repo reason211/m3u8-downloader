@@ -11,9 +11,9 @@ let videoSuffix = args['suffix']; // eg '.ts'
 let videoUrlDirPath = args['root']; // eg 'https://abc.com/video28912030123/'
 let headerReferrer = args['referrer']; // eg 'https://abc.com'
 let threadCount = args['threadCount'] || 3;
+let debug = args['debug'] == 'false' ? false : true;
 
-let debug = true; 
-let outputFileName = new Date().getTime() + '.ts'; // eg 'output.ts'
+// let outputFileName = new Date().getTime() + '.ts'; // eg 'output.ts'
 
 let retryOnError = true; 
 
@@ -23,7 +23,7 @@ let options = {
     url,
     outputDir, //optional
     proxy, //optional
-    outputFileName, //optional
+    // outputFileName, //optional
     threadCount, //optional
     videoSuffix, //optional
     videoUrlDirPath, //optional
