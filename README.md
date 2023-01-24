@@ -16,6 +16,7 @@ m3u8-downloader --proxy="http://127.0.0.1:1080" --url="https://xxx/xxx.m3u8" --o
 
 
 # options
+
 ## --out=outputDir 
 
 Specify the download output directory
@@ -31,6 +32,17 @@ Specify the suffix name of the video fragment to download
 ## --root="https://abc.com/video28912030123/" 
 
 Specify the URL Root address of the video fragment to download
+
+## --referrer="https://abc.com"
+
+HTTP Referrer
+
+## --threadCount=3
+
+Thread Count
+
+## --debug=true
+DEBUG false or true
 
 
 # Advanced usage
