@@ -20,13 +20,18 @@ function loadM3u8(onLoad) {
             eventEmitter.emit('error', error);
             return
         }
-        // console.log(response.body);
+
+        if( options.debug ){
+            console.log('M3u8 url res:', response.body);
+        }
+        
+
         lines = response.body.split('\n')
         files = []
         lines.forEach(line => {
-             if (
-               line.endsWith(videoSuffix) ||
-               line.includes(videoSuffix + "?")
+             if ( !videoSuffix || (
+                    line.endsWith(videoSuffix) || line.includes(videoSuffix + "?")
+               )
              ) {
                 if( line.startsWith('http://') || line.startsWith('https://') ){
                     files.push(line);
@@ -129,12 +134,18 @@ function download(options) {
             outputDir = '',
             outputFileName =  new Date().getTime() + '.ts',
             threadCount = 5,
-            videoSuffix = '.ts',
+            videoSuffix = '',
             videoUrlDirPath = '',
             headerReferrer = '',
             retryOnError=true,
-            proxy=null
+            proxy=null,
+            debug=false
         } = options )
+
+        if(debug){
+            console.log('Download options:' , options);
+        }
+        
 
         if( !videoUrlDirPath ){
             videoUrlDirPath = m3u8Url.substr(0, m3u8Url.lastIndexOf('/')) + '/';
