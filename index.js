@@ -2,46 +2,38 @@
 const args = require('minimist')(process.argv.slice(2))
 
 
-args['url'] = args['url'] || args._[0];
-args['out'] = args['out'] || args._[1];
-args['proxy'] = args['proxy'] || args._[2];
-args['suffix'] = args['suffix'] || args._[3];
-args['root'] = args['root'] || args._[4];
-
-
 let url = args['url'] 
   ? decodeURIComponent( args['url'] )
   : "https://.../xx.m3u8?v=123"; //required
 let outputDir = args['out']  || "./" + new Date().getTime();
 let proxy = args['proxy'];
-let videoSuffix = args['suffix'] || '.ts';
-let videoUrlDirPath = args['root'];
+let videoSuffix = args['suffix']; // eg '.ts'
+let videoUrlDirPath = args['root']; // eg 'https://abc.com/video28912030123/'
+let headerReferrer = args['referrer']; // eg 'https://abc.com'
+let threadCount = args['threadCount'] || 3;
 
+let debug = true; 
+let outputFileName = new Date().getTime() + '.ts'; // eg 'output.ts'
 
-console.log(url, outputDir, proxy);
-
-// let outputFileName = 'output.ts'; //optional
-// let threadCount = 5; //optional
-
-// let videoUrlDirPath = 'https://abc.com/video28912030123/'; //optional
-// let headerReferrer = 'https://abc.com'; //optional
-// let videoSuffix = '.ts'; //optional
-
-// let retryOnError = true; //optional
+let retryOnError = true; 
 
 let downloader = require('./downloader.js')
 
-let listener = downloader.download({
+let options = {
     url,
-    outputDir,
-    proxy,
-    // outputFileName,
-    // threadCount,
-    videoSuffix,
-    videoUrlDirPath,
-    // headerReferrer,
-    // retryOnError
-})
+    outputDir, //optional
+    proxy, //optional
+    outputFileName, //optional
+    threadCount, //optional
+    videoSuffix, //optional
+    videoUrlDirPath, //optional
+    headerReferrer, //optional
+    retryOnError, //optional
+    debug //optional
+};
+
+
+let listener = downloader.download(options)
 
 listener.on('start', function (d) {
     console.log("started downloading");
