@@ -161,9 +161,7 @@ function download(options) {
         console.log('DEBUG', downloadOptions.debug);
 
         
-        if(downloadOptions.debug){
-            console.log('Download options:' , downloadOptions);
-        }
+     
         
 
         if( !downloadOptions.videoUrlDirPath ){
