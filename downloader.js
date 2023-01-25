@@ -49,6 +49,9 @@ function loadM3u8(onLoad) {
                     line.endsWith(videoSuffix) || line.includes(videoSuffix + "?")
                )
              ) {
+                if( line.trim() === '' ){
+                    return;
+                }
                 if( line.startsWith('#') ){
                     return;
                 }
@@ -108,8 +111,15 @@ let startTasks = (taskList, taskHandlePromise, limit = 3) => {
     let _runTask = (arr) => {
         // console.debug('Progress: ' + ((taskList.length - arr.length) / taskList.length * 100).toFixed(2) + '%')
         eventEmitter.emit('progress', parseInt((taskList.length - arr.length) / taskList.length * 100));
+        
 
-        return taskHandlePromise(arr.shift())
+        let _url = arr.shift();
+
+        if(downloadOptions.debug){
+            console.log('Download fragment:', _url)
+        }
+
+        return taskHandlePromise(_url)
             .then(() => {
 
                 if (arr.length !== 0) return _runTask(arr)
@@ -174,6 +184,10 @@ function download(options) {
 
 
         loadM3u8((list) => {
+            if(downloadOptions.debug){
+                console.log('Ready download file list:', list);
+            }
+
             eventEmitter.emit('progress', 0);
             // mergeFiles(list)
             startTasks(list, downloadVideoFile, downloadOptions.threadCount).then(()=>{
