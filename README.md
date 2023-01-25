@@ -82,26 +82,26 @@ let options = {
 
 let listener = downloader.download(options)
 
-listener.on('start', function (d) {
-    console.log("started downloading");
+listener.on('start', function (options) {
+    console.log("started downloading", options);
 });
 
-listener.on('progress', function (d) {
-    console.log(d);
-});
-
-
-listener.on('downloaded', function (d) {
-    console.log('downloaded', d);
+listener.on('progress', function (percent) {
+    console.log('progress', percent);
 });
 
 
-listener.on('complete', function (d) {
-    console.log('done', d);
+listener.on('downloaded', function (list) {
+    console.log('downloaded', list);
 });
 
-listener.on('error', function (e) {
-    console.error('error', e);
+
+listener.on('complete', function (outFile) {
+  console.log("done", outFile);
+});
+
+listener.on('error', function (error) {
+    console.error('error', error);
 });
 
 ```
