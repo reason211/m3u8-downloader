@@ -30,5 +30,8 @@
     "http referrer",
     "event",
     "monitor"
-  ]
+  ],
+  "devDependencies": {
+    "eslint": "^8.32.0"
+  }
 }
