@@ -1,19 +1,30 @@
-var fs = require('fs')
-var request = require('request');
+let fs = require('fs')
+let request = require('request');
 
-var EventEmitter = require('events').EventEmitter;
-eventEmitter = new EventEmitter()
+let EventEmitter = require('events').EventEmitter;
+let eventEmitter = new EventEmitter()
 
-let downloadOptions = {}
+let downloadOptions = {
+    url : '',
+    outputDir : '',
+    outputFileName :  new Date().getTime() + '.ts',
+    threadCount : 5,
+    videoSuffix : '',
+    videoUrlDirPath : '',
+    headerReferrer : '',
+    retryOnError:true,
+    proxy:null,
+    debug:false
+}
 
 function loadM3u8(onLoad) {
-    var options = {
-        'method': 'GET',
-        'url': m3u8Url,
-        'headers': {
-            'Referer': headerReferrer
+    let options = {
+        method: 'GET',
+        url: downloadOptions.url,
+        headers: {
+            Referer: downloadOptions.headerReferrer
         },
-        proxy
+        proxy: downloadOptions.proxy
     };
     request(options, function (error, response) {
 
@@ -28,13 +39,20 @@ function loadM3u8(onLoad) {
         }
         
 
-        lines = response.body.split('\n')
-        files = []
+        let lines = response.body.split('\n')
+        let files = []
         lines.forEach(line => {
+            let videoSuffix = downloadOptions.videoSuffix;
+            let videoUrlDirPath = downloadOptions.videoUrlDirPath;
+
              if ( !videoSuffix || (
                     line.endsWith(videoSuffix) || line.includes(videoSuffix + "?")
                )
              ) {
+                if( line.startsWith('#') ){
+                    return;
+                }
+
                 if( line.startsWith('http://') || line.startsWith('https://') ){
                     files.push(line);
                 }else{
@@ -57,12 +75,16 @@ function loadM3u8(onLoad) {
 
 function downloadVideoFile(url) {
     return new Promise( (resolve,reject) => {
-        var options = {
-            'method': 'GET',
-            'url': url,
-            'encoding': null,
-            'headers': {
-                'Referer': headerReferrer
+        let proxy = downloadOptions.proxy;
+        let headerReferrer = downloadOptions.headerReferrer;
+        let outputDir = downloadOptions.outputDir;
+
+        let options = {
+            method: 'GET',
+            url: url,
+            encoding: null,
+            headers: {
+                Referer: headerReferrer
             },
             proxy
         };
@@ -81,6 +103,8 @@ function downloadVideoFile(url) {
 }
 
 let startTasks = (taskList, taskHandlePromise, limit = 3) => {
+    let retryOnError = downloadOptions.retryOnError;
+
     let _runTask = (arr) => {
         // console.debug('Progress: ' + ((taskList.length - arr.length) / taskList.length * 100).toFixed(2) + '%')
         eventEmitter.emit('progress', parseInt((taskList.length - arr.length) / taskList.length * 100));
@@ -110,8 +134,8 @@ let startTasks = (taskList, taskHandlePromise, limit = 3) => {
 }
 
 function mergeFiles(list) {
-
-    let outFile = outputDir + '/' + outputFileName;
+    let outputDir = downloadOptions.outputDir;
+    let outFile = outputDir + '/' + downloadOptions.outputFileName;
 
     if( fs.existsSync(outFile) ){
         fs.unlinkSync(outFile);
@@ -131,61 +155,37 @@ function mergeFiles(list) {
 
 function download(options) {
     setImmediate(()=>{
-        downloadOptions = options = Object.assign({
-            url : '',
-            outputDir : '',
-            outputFileName :  new Date().getTime() + '.ts',
-            threadCount : 5,
-            videoSuffix : '',
-            videoUrlDirPath : '',
-            headerReferrer : '',
-            retryOnError:true,
-            proxy:null,
-            debug:false
-        }, options);
+        downloadOptions = Object.assign( downloadOptions, options);
+        
+ 
+        console.log('DEBUG', downloadOptions.debug);
 
         
-        ({
-            url:m3u8Url ,
-            outputDir ,
-            outputFileName,
-            threadCount ,
-            videoSuffix ,
-            videoUrlDirPath,
-            headerReferrer,
-            retryOnError,
-            proxy,
-            debug
-        } = options )
-
-        console.log('DEBUG', debug);
-
-        
-        if(debug){
-            console.log('Download options:' , options);
+        if(downloadOptions.debug){
+            console.log('Download options:' , downloadOptions);
         }
         
 
-        if( !videoUrlDirPath ){
-            videoUrlDirPath = m3u8Url.substr(0, m3u8Url.lastIndexOf('/')) + '/';
+        if( !downloadOptions.videoUrlDirPath ){
+            downloadOptions.videoUrlDirPath = downloadOptions.url.substring(0, downloadOptions.url.lastIndexOf('/')) + '/';
         }
 
-        if (!fs.existsSync(outputDir)) {
-            fs.mkdirSync(outputDir);
+        if (!fs.existsSync(downloadOptions.outputDir)) {
+            fs.mkdirSync(downloadOptions.outputDir);
         }
 
 
         loadM3u8((list) => {
             eventEmitter.emit('progress', 0);
             // mergeFiles(list)
-            startTasks(list, downloadVideoFile, threadCount).then(()=>{
+            startTasks(list, downloadVideoFile, downloadOptions.threadCount).then(()=>{
                 eventEmitter.emit('downloaded', list);
 
                 mergeFiles(list)
             })
         })
 
-        eventEmitter.emit('start', options);
+        eventEmitter.emit('start', downloadOptions);
     })
     return eventEmitter;
 }
